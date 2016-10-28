@@ -1,76 +1,107 @@
+# Sample CodaLab competition for SemEval #
 
+This is a sample competition bundle for CodaLab competitions (https://competitions.codalab.org/) designed as a starting point for SemEval task organizers.
 
-See these descriptions and tutorials on codalab:
+## Understanding CodaLab competitions ##
+
+These descriptions and tutorials on CodaLab are a good place to start:
 - https://www.youtube.com/watch?v=mU1yEEMrMvY
 - Competition Roadmap: https://github.com/codalab/codalab-competitions/wiki/User_Competition-Roadmap
 - Quickstart: https://github.com/codalab/codalab-worksheets/wiki/Quickstart
 - Running a Competition: https://github.com/codalab/codalab-competitions/wiki/User_Running-a-Competition
 
+## Understanding this sample competition ##
 
-This particular example competition looks for submissions with the text "Hello World!". If it finds
-it, it gives it a score of 1, otherwise a score of 0. Follow the steps below to customize it. You
-may want to upload the competition with minimum (or no) editing first, just to get a feel of how a
-competition bundle works.
+This sample competition looks for submissions with the text "Hello World!". If it finds
+it, it gives it a score of 1, otherwise a score of 0.
 
-Editing the sample bundle for your task:
+To understand how a CodaLab competition bundle is created, take a look at the Makefile.
+In short, you need to create a ZIP file that includes all the YAML and HTML files in the competition directory, as well as the zipped-up scoring program and reference data.
+To do this automatically, you can run:
 
-- Edit competition.yaml to customize it for your task.
-  - Edit the title and description.
-  - Change the name of the logo file to your logo file.
-  - Give suitable title for phase 1. (Replace "First phase" with title of phase.) You can add more phases, and edit details, through the graphical interface, after you upload the competition.
-  - Edit start date as appropriate.
-  - Change "correct" to the name of the evaluation metric for the phase, for example, fscore, accuracy, etc.
-  - Change "numeric_format" for the required digits after the decimal point. For example, using 2 will show two digits after the decimal.
+    make competition.zip
 
-- Copy your logo image file into the competition directory.
-
-- The directory "reference_data" has the gold answers file truth.txt. Update it with the gold answers for your task. 
-- Zip the files in the "reference_data" directory into reference_data.zip. reference_data.zip should be placed in the competition directory.
-
-- Edit the evaluation script (evaluation.py) in scoring_program directory.
-  - If you change the name of your evaluation script, then change it in the metadata file as well.
-  - If your script is not in python, then update the "metadata" file appropriately. For example, for perl, use "command: perl $program/evaluation.pl $input $output".
-  - The evaluation script takes two commandline arguments, the input directory and the output directory. These pertain to where your competition files will be stored in the codalab system, and so largely you do not have to worry about them.
-  - Do not change the names of the files scores.txt, truth.txt, answer.txt. If you do make sure, you take care of the dependencies.
-  - "truth_file" is the variable for the gold answers file, submission_answer_file is for the submission file: change the script so that it reads and evaluates the submission appropriately for your task. (Edit the body of the script to compare data obtained from the submission with the data in truth.txt.)
-  - Add format checking to the evaluation script. Make sure that the submission_answer_file has data in the right format.
-  - The evaluation script should print the result in the file scores.txt: <metric name>:<score>
-    For example, "correct:1" or "f-score:0.74".
-  - Print additional details to STDOUT. 
-- Zip the files in the scoring_program directory into scoring_program.zip. scoring_program.zip should be placed in the competition directory.
-
-  
-To upload the competition bundle:
-- zip the files to create the bundle (not the directory holding the files)
-Here is what I did on my machine: zip -r -X competition-bundle.zip *
-- Go to codalab competitions website:
-https://competitions.codalab.org/competitions/
-Register (create an account), sign in.
-- click on "My Competitions"
-- click on the "Competitions I'm Running" tab
-- click on "create competition" and upload the competition bundle
-
+That ZIP file can then be used to create a new competition at CodaLab: https://competitions.codalab.org/competitions/create.
+(You will need to register and create an account first.)
+You may want to upload this competition with minimum (or no) editing first, just to get a feel of how a competition bundle works.
 
 Once the competition has uploaded successfully:
-- Note the secure url the system provides below the task title. This is the competition url that can be shared with others.
-- Explore admin features at the top such as "Edit" and "Submissions". (Note that the edit button takes a few seconds to load the page.)
-- Edit the task further as appropriate. Click on the "Allow teams" checkbox. Add details to various webpages. Add additional phases if needed.
-- Upload a submission. It has to be a zipped file.
-  - A sample answer file and its zipped form is provided in the "submission" directory.
-  - Click on "participate". Click on "Submit / View Results".
-  - Enter suitable description for each submission in the text box provided.
+
+- Note the secure url the system provides below the task title.
+  This is the competition url that can be shared with others while you are still setting up the competition.
+- Explore the admin features at the top such as "Edit" and "Submissions".
+  (Note that the edit button takes a few seconds to load the page.)
+- Try uploading a submission.
+  You can generate a sample submission at the command line by running ``make submission.zip``, which, as you can see in the Makefile, makes a ZIP file containing just the ``answer.txt`` file.
+  Then in your CodaLab competition:
+
+  - Click on "Participate". Click on "Submit / View Results".
+  - Enter a suitable description for each submission in the text box provided.
   - Click on the "Submit" button to upload the file.
-This should execute the evaluation script on the submission and store the results.  Unfortunately,
-codalab has some bugs currently (which may be fixed by the time you read this). So be patient, and
-upload the submission a few times if it does not succeed initially. The system should run
-successfully after a few uploads.  If system shows status as "submitting", then wait a few seconds,
-and click on the refresh button. A successful execution of the evaluation script will result in
-a status of "Finished".
-Here are some errors that one may get due to no fault of theirs:
-(a) some times the system says: can't open the evaluation script, permission denied
-(b) some times the system says: OSError: [Errno 39] Directory not empty
-(c) some times the system just says submitted; and does not finish executing the evaluation script
-(d) some times the system stalls with the status "submitting".
-We have informed codalab developers of the bug.
-  - Explore various files generated on running the evaluation script. For example, text sent to STDOUT will be available in "View scoring output log". Add submission to leaderboard. Click on "Results" to see the leaderboard.
+  - This should execute the evaluation script on the submission and store the results.
+  - You can monitor the progress on the "Submit / View Results" page by clicking the "+" beside your submission and then clicking on "Refresh status".
+  - Your submission should move from "Submitted" to "Running" to "Finished".
+  - When it is "Finished", explore various files generated on running the evaluation script. For example, text sent to STDOUT will be available in "View scoring output log".
+  - Click on "Results" to see the leaderboard.
+
+
+### CodaLab errors ###
+
+Unfortunately, CodaLab has some bugs currently (which may be fixed by the time you read this).
+For example:
+
+- some times the system says: can't open the evaluation script, permission denied
+- some times the system says: OSError: [Errno 39] Directory not empty
+- some times the system stalls with the status "Submitting" and never reaches "Finished".
+
+We have informed the CodaLab developers of these bugs, and they are working on fixing them.
+In the meantime, the suggested workaround for most problems is to re-upload the submission; usually it will be successful after a few tries.
+
+## Customizing this sample competition ##
+
+You will need to customize many things in this sample competition to make it appropriate for your SemEval shared task
+
+### competition.yaml ###
+
+This is the main meta-data for your task.
+
+- Edit the title and description.
+- Modify the leaderboard.
+
+  - Change "correct" to the name of your evaluation metric (e.g., fscore, accuracy)
+  - Change "numeric_format" for the required digits after the decimal point. For example, using 2 will show two digits after the decimal.
+  - If you will have multiple evaluation metrics, add a similar block for each of them.
+  - You will need to make sure that your scoring program outputs these same names.
+
+- Add extra phases if needed. If you're not sure whether you need extra phases or not, start a discussion on semeval-task-organizers@googlegroups.com.
+
+### Other competition files ###
+
+The other competition files are all referenced by competition.yaml and are included in the bundle you upload.
+If you change any of their names, be sure to also change their names in competition.yaml.
+
+- Replace the logo file with the logo for your task.
+- Add details to each of the webpages.
+
+### The scoring program ###
+
+- Replace the sample scoring program with your task's scoring program. Your scoring program will have to follow the standard CodaLab directory structure for the reference data, the system submission, and the output ``scores.txt`` file: https://github.com/codalab/codalab-competitions/wiki/User_Building-a-Scoring-Program-for-a-Competition#directory-structure-for-submissions
+- If you change the name of the evaluation script, then change it in the ``metadata`` file as well.
+  For example, if your script is in Perl and called ``score.pl``, then use ``command: perl $program/score.pl $input $output``.
+- Be sure that your evaluation script gives clear error messages when it fails.
+  For example, if there is a formatting error in someone's submission, your script should explain the problem and exit with an error status (e.g., ``sys.exit("some error message")`` in Python).
+- Be sure that your evaluation script is writing the output in the right format; it should print lines of the format ``<metric name>:<score>`` in the  ``scores.txt`` file. For example:
+
+        correct:1
+        f-score:0.74
+
+### The reference data ###
+
+The ``dev_data`` and ``test_data`` directories contain the reference data on which systems will be evaluated in the Development and Testing phases, respectively.
+In the sample, the reference data for each takes the form of a single file, ``truth.txt``.
+You should replace ``truth.txt`` with whatever file(s) and format(s) your scoring program expects for the reference data.
+Your development data should already be prepared; it's just part of the training data that you have already released.
+If you do not yet have your test data prepared, you can delete ``reference_data: test_data.zip`` from ``competition.yaml`` for now, and add the test data via the CodaLab graphical interface later.
+
+
 
