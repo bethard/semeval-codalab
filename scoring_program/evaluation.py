@@ -22,4 +22,4 @@ with open(os.path.join(input_dir, 'ref', 'truth.txt')) as truth_file:
 # https://github.com/codalab/codalab-competitions/wiki/User_Building-a-Scoring-Program-for-a-Competition#directory-structure-for-submissions
 with open(os.path.join(output_dir, 'scores.txt'), 'w') as output_file:
     score = 1 if truth == submission else 0
-    output_file.write("correct:{0}".format(score))
+    output_file.write("correct:{0}\n".format(score))
