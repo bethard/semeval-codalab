@@ -5,7 +5,7 @@ competition/dev_data.zip:
 	cd dev_data && zip ../competition/dev_data.zip * && cd ..
 
 competition/test_data.zip:
-	cd dev_data && zip ../competition/test_data.zip * && cd ..
+	cd test_data && zip ../competition/test_data.zip * && cd ..
 
 competition.zip: competition/scoring_program.zip competition/dev_data.zip competition/test_data.zip
 	cd competition && zip ../competition.zip * && cd ..
