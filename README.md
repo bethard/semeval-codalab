@@ -101,7 +101,4 @@ The ``dev_data`` and ``test_data`` directories contain the reference data on whi
 In the sample, the reference data for each takes the form of a single file, ``truth.txt``.
 You should replace ``truth.txt`` with whatever file(s) and format(s) your scoring program expects for the reference data.
 Your development data should already be prepared; it's just part of the training data that you have already released.
-If you do not yet have your test data prepared, you can delete ``reference_data: test_data.zip`` from ``competition.yaml`` for now, and add the test data via the CodaLab graphical interface later.
-
-
-
+If you do not yet have reference data prepared for your Testing phase, then for now you can configure the Testing phase to use the Development phase data: ``reference_data: dev_data.zip``.  (You *must* specify reference data for all phases, or else CodaLab will throw an error when you try to publish your competition.)  You can add the real Testing data via the CodaLab graphical interface later, but you must do so before the Testing phase starts.
