@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import os
 import os.path
 
 # as per the metadata file, input and output directories are the arguments
@@ -7,9 +8,12 @@ import os.path
 
 # unzipped submission data is always in the 'res' subdirectory
 # https://github.com/codalab/codalab-competitions/wiki/User_Building-a-Scoring-Program-for-a-Competition#directory-structure-for-submissions
-submission_path = os.path.join(input_dir, 'res', 'answer.txt')
+submission_file_name = 'answer.txt'
+submission_dir = os.path.join(input_dir, 'res')
+submission_path = os.path.join(submission_dir, submission_file_name)
 if not os.path.exists(submission_path):
-    sys.exit('Could not find submission file {0}'.format(submission_path))
+    message = "Expected submission file '{0}', found files {1}"
+    sys.exit(message.format(submission_file_name, os.listdir(submission_dir)))
 with open(submission_path) as submission_file:
     submission = submission_file.read()
 
