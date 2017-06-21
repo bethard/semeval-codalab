@@ -5,15 +5,15 @@ This is a sample competition bundle for CodaLab competitions (https://competitio
 ## Understanding CodaLab competitions ##
 
 These descriptions and tutorials on CodaLab are a good place to start:
-- https://www.youtube.com/watch?v=mU1yEEMrMvY
-- Competition Roadmap: https://github.com/codalab/codalab-competitions/wiki/User_Competition-Roadmap
-- Quickstart: https://github.com/codalab/codalab-worksheets/wiki/Quickstart
-- Running a Competition: https://github.com/codalab/codalab-competitions/wiki/User_Running-a-Competition
+- Tristan Miller's tutorial: https://www.hse.ru/data/2017/05/31/1171931089/CodaLabCompetitions.pdf
+- Isabelle Guyon's tutorial: https://www.youtube.com/watch?v=mU1yEEMrMvY
+- CodaLab Competition Roadmap: https://github.com/codalab/codalab-competitions/wiki/User_Competition-Roadmap
+- CodaLab Running a Competition: https://github.com/codalab/codalab-competitions/wiki/User_Running-a-Competition
 
 ## Understanding this sample competition ##
 
-This sample competition looks for submissions with the text "Hello World!". If it finds
-it, it gives it a score of 1, otherwise a score of 0.
+This sample competition looks for submissions with a single file, 'answer.txt', containing the text "Hello World!".
+If it finds it, it gives it a score of 1, otherwise a score of 0.
 
 To understand how a CodaLab competition bundle is created, take a look at the Makefile.
 In short, you need to create a ZIP file that includes all the YAML and HTML files in the competition directory, as well as the zipped-up scoring program and reference data.
@@ -44,19 +44,6 @@ Once the competition has uploaded successfully:
   - When it is "Finished", explore various files generated on running the evaluation script. For example, text sent to STDOUT will be available in "View scoring output log".
   - Click on "Results" to see the leaderboard.
 
-
-### CodaLab errors ###
-
-Unfortunately, CodaLab has some bugs currently (which may be fixed by the time you read this).
-For example:
-
-- some times the system says: can't open the evaluation script, permission denied
-- some times the system says: OSError: [Errno 39] Directory not empty
-- some times the system stalls with the status "Submitting" and never reaches "Finished".
-
-We have informed the CodaLab developers of these bugs, and they are working on fixing them.
-In the meantime, the suggested workaround for most problems is to re-upload the submission; usually it will be successful after a few tries.
-
 ## Customizing this sample competition ##
 
 You will need to customize many things in this sample competition to make it appropriate for your SemEval shared task
@@ -73,7 +60,7 @@ This is the main meta-data for your task.
   - If you will have multiple evaluation metrics, add a similar block for each of them.
   - You will need to make sure that your scoring program outputs these same names.
 
-- Add extra phases if needed. If you're not sure whether you need extra phases or not, start a discussion on semeval-task-organizers@googlegroups.com.
+- Add extra phases if needed. If you're not sure whether you need extra phases or not, start a discussion on semeval2018-task-organizers@googlegroups.com.
 
 ### Other competition files ###
 
@@ -97,8 +84,8 @@ If you change any of their names, be sure to also change their names in competit
 
 ### The reference data ###
 
-The ``dev_data`` and ``test_data`` directories contain the reference data on which systems will be evaluated in the Development and Testing phases, respectively.
+The ``dev_data`` and ``test_data`` directories contain the reference data on which systems will be evaluated in the Practice and Evaluation phases, respectively.
 In the sample, the reference data for each takes the form of a single file, ``truth.txt``.
 You should replace ``truth.txt`` with whatever file(s) and format(s) your scoring program expects for the reference data.
-Your development data should already be prepared; it's just part of the training data that you have already released.
-If you do not yet have reference data prepared for your Testing phase, then for now you can configure the Testing phase to use the Development phase data: ``reference_data: dev_data.zip``.  (You *must* specify reference data for all phases, or else CodaLab will throw an error when you try to publish your competition.)  You can add the real Testing data via the CodaLab graphical interface later, but you must do so before the Testing phase starts.
+If you have not yet completed preparation of data for your Practice (dev) or Evaluation (test) phases, put some sort of placeholder data here for now.
+You can add the real data via the CodaLab graphical interface later.
